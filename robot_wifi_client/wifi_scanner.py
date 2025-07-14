@@ -12,7 +12,7 @@ class WiFiScanner:
     def __init__(self, logger, wifi_interface=None, wifi_top_n=10):
         self.logger = logger
         self.wifi_interface = wifi_interface or self._detect_wifi_interface()
-        self.wifi_top_n = wifi_top_n
+        self.wifi_top_n = wifi_top_n # n APs limit to process
         self.sudo_available = self._check_sudo_available()
         
         if not self.sudo_available:
@@ -181,8 +181,7 @@ class WiFiScanner:
                 wifi_dict[bssid] = {'SSID': ssid, 'BSSID': bssid, 'SIGNAL': signal}
         
         # Convert to list for sorting
-        wifi_list = list(wifi_dict.values())
-        return sorted(wifi_list, key=lambda x: x['SIGNAL'], reverse=True)[:self.wifi_top_n]
+        return sorted(wifi_dict.values(), key=lambda x: x['SIGNAL'], reverse=True)[:self.wifi_top_n]
     
     def scan_wifi_iw(self):
         """
