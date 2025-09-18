@@ -11,7 +11,7 @@ class WifiScannerNode(Node):
         self.timer = self.create_timer(timer, self.scan_and_send) 
         self.map_name = map_name
         self.device_id = device_id
-        self.api_url = f'http://{server_ip}:8000/localize_basic_graph/{self.map_name}'
+        self.api_url = f'http://{server_ip}:8000/localize/{self.map_name}'
         self.wifi_scanner = WiFiScanner(self.get_logger())
 
     def scan_and_send(self):
